@@ -1,0 +1,24 @@
+# Base Image that build NPM related packages (Stage 1) (big image) [500MB]
+
+FROM node:24-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+
+# Base Image that Run The Application (Stage 2) (small image) [200MB]
+
+FROM gcr.io/distroless/nodejs22-debian13
+
+WORKDIR /app
+
+COPY --from=builder /app ./
+
+EXPOSE 5173
+
+CMD ["npm","run","dev"]
