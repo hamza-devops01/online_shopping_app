@@ -13,7 +13,7 @@ COPY . .
 
 # Base Image that Run The Application (Stage 2) (small image) [200MB]
 
-FROM gcr.io/distroless/nodejs22-debian13
+FROM node:24-slim
 
 WORKDIR /app
 
