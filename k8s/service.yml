@@ -10,6 +10,6 @@ spec:
     app: online-shop-app
 
   ports:
-    - protocgl: TCP
-      port: 5173          # service / cluster port
-      targetPort: 5173    # pod / container port
+    - protocol: TCP
+      port: 80          # service / cluster port
+      targetPort: 80    # pod / container port

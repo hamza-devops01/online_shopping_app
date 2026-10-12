@@ -24,5 +24,5 @@ spec:
       - name: online-shop-container
         image: hamzadevops01/online-shop-app:latest
         ports:
-        - containerPort: 5173
+        - containerPort: 80
 

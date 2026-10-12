@@ -6,6 +6,10 @@ metadata:
   namespace: online-shop-ns
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+
+    
+
 
 spec:
   rules:
@@ -17,7 +21,7 @@ spec:
           service:
             name: online-shop-svc
             port:
-              number: 5173
+              number: 80
       - pathType: Prefix
         path: /apache
         backend:
