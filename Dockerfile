@@ -1,5 +1,5 @@
 #Getting Base Image (OS)
-FROM node:24-alpine as build
+FROM node:20-alpine as build
 
 #Make Working Dir for Code and req
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 #Install dependencies
-RUN npm run install
+RUN npm ci
 
 #Copy reaming code
 COPY . .
@@ -16,18 +16,16 @@ COPY . .
 #We collect the css & static files in one place and serve with nginx
 RUN npm run build
 
-
-
-#Prodection stage with nginx
+# Production stage with Nginx
 
 #Use image of nginx
 FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=build /app/dist /yser/share/nginx/html
-COPY nginx.config /etc/nginx/conf.d/default.conf
 
 #Expose the Port
 EXPOSE 80
 
 #Server the Applicatioin
-CMD ["nginx","-g","daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
